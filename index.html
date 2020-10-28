@@ -32,19 +32,24 @@
     </div>
     <script src="./lib/jquery.js"></script>
     <script>
-      $(function () {
-        $('input.ipt').on('keyup', function () {
-          var txt = $(this).val().trim();
-          $.ajax({
-            ulr: 'https://suggest.taobao.com/sug',
-            data: {
-              q: txt,
-            },
-            success: function (msg) {
-              console.log(msg);
-            },
-            dataType: 'jsonp',
-          });
+      $('input.ipt').on('keyup', function () {
+        $('#sousuo').empty();
+        var val = $(this).val().trim();
+        if (val === '') {
+          return;
+        }
+        $.ajax({
+          url: 'https://suggest.taobao.com/sug',
+          dataType: 'jsonp',
+          data: {
+            q: val,
+          },
+          success: function (mes) {
+            console.log(mes);
+            $.each(mes.result, function (i, val) {
+              $('<li>' + val[0] + '</li>').appendTo($('#sousuo'));
+            });
+          },
         });
       });
     </script>
