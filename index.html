@@ -30,5 +30,23 @@
         </ul>
       </div>
     </div>
+    <script src="./lib/jquery.js"></script>
+    <script>
+      $(function () {
+        $('input.ipt').on('keyup', function () {
+          var txt = $(this).val().trim();
+          $.ajax({
+            ulr: 'https://suggest.taobao.com/sug',
+            data: {
+              q: txt,
+            },
+            success: function (msg) {
+              console.log(msg);
+            },
+            dataType: 'jsonp',
+          });
+        });
+      });
+    </script>
   </body>
 </html>
